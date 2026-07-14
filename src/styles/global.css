@@ -1,0 +1,38 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Inter,Segoe UI,sans-serif;
+  background:#F8FAFC;
+  color:#1E293B;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+:root{
+  --primary:#2563EB;
+  --secondary:#4F46E5;
+  --accent:#06B6D4;
+
+  --success:#22C55E;
+  --warning:#F59E0B;
+  --danger:#EF4444;
+
+  --background:#F8FAFC;
+  --card:#FFFFFF;
+
+  --text:#1E293B;
+  --border:#E2E8F0;
+
+  --shadow:0 8px 25px rgba(0,0,0,.08);
+}
