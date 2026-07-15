@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import {
   Box,
   Typography,
@@ -14,434 +15,973 @@ import {
   DialogContent,
   DialogActions,
   Chip,
-  useTheme,
-  useMediaQuery,
+  Divider,
 } from "@mui/material";
-import { Camera, Save, Edit2, X } from "lucide-react";
+
+import {
+  Camera,
+  Save,
+  Edit2,
+} from "lucide-react";
+
 import Layout from "../components/layout/Layout";
 
+
 export default function Profile() {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [profilePhoto, setProfilePhoto] = useState(null);
-  const [showPhotoDialog, setShowPhotoDialog] = useState(false);
 
-  const [profile, setProfile] = useState({
-    firstName: "Georgina",
-    lastName: "Mora",
-    email: "georgina@example.com",
-    phone: "+1 (555) 123-4567",
-    location: "San Francisco, CA",
-    bio: "Passionate software engineer looking for my next opportunity.",
-    currentCompany: "Tech Startup",
-    currentRole: "Senior Software Engineer",
-    yearsOfExperience: "5",
-    skills: ["React", "JavaScript", "Python", "Node.js", "TypeScript"],
+  const [isEditing,setIsEditing] = useState(false);
+
+  const [profilePhoto,setProfilePhoto] = useState(null);
+
+  const [showPhotoDialog,setShowPhotoDialog] = useState(false);
+
+
+  const [profile,setProfile] = useState({
+
+    firstName:"Georgina",
+
+    lastName:"Mora",
+
+    email:"georgina@example.com",
+
+    phone:"+254 700 000 000",
+
+    location:"Nairobi, Kenya",
+
+    bio:
+    "Passionate software engineering student interested in building useful technology solutions.",
+
+    currentCompany:"Career Development",
+
+    currentRole:"Software Engineering Student",
+
+    yearsOfExperience:"1",
+
+    skills:[
+      "React",
+      "JavaScript",
+      "Python",
+      "Node.js",
+      "TypeScript"
+    ]
+
   });
 
-  const [editedProfile, setEditedProfile] = useState(profile);
-  const [newSkill, setNewSkill] = useState("");
 
-  const handleSave = () => {
+
+  const [editedProfile,setEditedProfile]=useState(profile);
+
+  const [newSkill,setNewSkill]=useState("");
+
+
+
+  const handleSave=()=>{
+
     setProfile(editedProfile);
+
     setIsEditing(false);
+
   };
 
-  const handleCancel = () => {
+
+
+  const handleCancel=()=>{
+
     setEditedProfile(profile);
+
     setIsEditing(false);
+
   };
 
-  const handleAddSkill = () => {
-    if (newSkill && !editedProfile.skills.includes(newSkill)) {
+
+
+  const addSkill=()=>{
+
+    if(
+      newSkill &&
+      !editedProfile.skills.includes(newSkill)
+    ){
+
       setEditedProfile({
+
         ...editedProfile,
-        skills: [...editedProfile.skills, newSkill],
+
+        skills:[
+          ...editedProfile.skills,
+          newSkill
+        ]
+
       });
+
       setNewSkill("");
+
     }
+
   };
 
-  const handleRemoveSkill = (skill) => {
+
+
+  const removeSkill=(skill)=>{
+
     setEditedProfile({
+
       ...editedProfile,
-      skills: editedProfile.skills.filter((s) => s !== skill),
+
+      skills:
+      editedProfile.skills.filter(
+        item=>item!==skill
+      )
+
     });
+
   };
 
-  const handlePhotoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
+
+
+  const handlePhotoUpload=(e)=>{
+
+    const file=e.target.files[0];
+
+
+    if(file){
+
+      const reader=new FileReader();
+
+
+      reader.onload=(event)=>{
+
         setProfilePhoto(event.target.result);
+
         setShowPhotoDialog(false);
+
       };
+
+
       reader.readAsDataURL(file);
+
     }
+
   };
 
-  return (
-    <Layout>
-      {/* Header */}
-      <Box mb={4} display="flex" justifyContent="space-between" alignItems="center">
-        <div>
-          <Typography variant="h4" fontWeight="700" gutterBottom>
-            Profile
-          </Typography>
-          <Typography color="text.secondary" variant="body2">
-            Manage your professional information
-          </Typography>
-        </div>
-        {!isEditing && (
-          <Button
-            variant="contained"
-            startIcon={<Edit2 size={20} />}
-            onClick={() => setIsEditing(true)}
-          >
-            Edit Profile
-          </Button>
-        )}
-      </Box>
 
-      <Grid container spacing={3}>
-        {/* Profile Card */}
-        <Grid item xs={12} md={4}>
-          <Card>
-            <CardContent sx={{ textAlign: "center", pt: 4 }}>
-              {/* Profile Photo */}
-              <Box position="relative" display="inline-block" mb={2}>
-                <Avatar
-                  sx={{
-                    width: 120,
-                    height: 120,
-                    margin: "0 auto",
-                    backgroundColor: theme.palette.primary.main,
-                    fontSize: "3rem",
-                  }}
-                  src={profilePhoto}
-                >
-                  {profile.firstName.charAt(0)}
-                  {profile.lastName.charAt(0)}
-                </Avatar>
-                {isEditing && (
-                  <IconButton
-                    size="small"
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      right: 0,
-                      backgroundColor: theme.palette.primary.main,
-                      color: "white",
-                      "&:hover": {
-                        backgroundColor: theme.palette.primary.dark,
-                      },
-                    }}
-                    onClick={() => setShowPhotoDialog(true)}
-                  >
-                    <Camera size={20} />
-                  </IconButton>
-                )}
-              </Box>
 
-              {/* Name and Title */}
-              <Typography variant="h5" fontWeight="bold" mb={1}>
-                {profile.firstName} {profile.lastName}
-              </Typography>
-              <Typography color="text.secondary" variant="body2" mb={0.5}>
-                {profile.currentRole}
-              </Typography>
-              <Typography color="text.secondary" variant="caption">
-                {profile.currentCompany}
-              </Typography>
 
-              {/* Contact Info */}
-              <Box mt={3} textAlign="left">
-                <Typography variant="caption" fontWeight="bold" display="block" mb={1}>
-                  Contact Information
-                </Typography>
-                <Box mb={1}>
-                  <Typography variant="caption" color="text.secondary">
-                    Email
-                  </Typography>
-                  <Typography variant="body2" sx={{ wordBreak: "break-all" }}>
-                    {profile.email}
-                  </Typography>
-                </Box>
-                <Box mb={1}>
-                  <Typography variant="caption" color="text.secondary">
-                    Phone
-                  </Typography>
-                  <Typography variant="body2">{profile.phone}</Typography>
-                </Box>
-                <Box>
-                  <Typography variant="caption" color="text.secondary">
-                    Location
-                  </Typography>
-                  <Typography variant="body2">{profile.location}</Typography>
-                </Box>
-              </Box>
+return(
 
-              {/* Experience */}
-              <Box mt={3} textAlign="left">
-                <Typography variant="caption" fontWeight="bold" display="block" mb={1}>
-                  Experience
-                </Typography>
-                <Typography variant="body2">
-                  {profile.yearsOfExperience} years
-                </Typography>
-              </Box>
-            </CardContent>
-          </Card>
-        </Grid>
+<Layout>
 
-        {/* Details Card */}
-        <Grid item xs={12} md={8}>
-          <Card>
-            <CardContent>
-              {isEditing ? (
-                // Edit Mode
-                <Box>
-                  <Typography variant="h6" fontWeight="bold" mb={3}>
-                    Edit Profile Information
-                  </Typography>
 
-                  <Grid container spacing={2} mb={3}>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="First Name"
-                        value={editedProfile.firstName}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            firstName: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Last Name"
-                        value={editedProfile.lastName}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            lastName: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Email"
-                        type="email"
-                        value={editedProfile.email}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            email: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Phone"
-                        value={editedProfile.phone}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            phone: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Location"
-                        value={editedProfile.location}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            location: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        multiline
-                        rows={3}
-                        label="Bio"
-                        value={editedProfile.bio}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            bio: e.target.value,
-                          })
-                        }
-                        placeholder="Tell us about yourself..."
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Current Company"
-                        value={editedProfile.currentCompany}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            currentCompany: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Current Role"
-                        value={editedProfile.currentRole}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            currentRole: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        type="number"
-                        label="Years of Experience"
-                        value={editedProfile.yearsOfExperience}
-                        onChange={(e) =>
-                          setEditedProfile({
-                            ...editedProfile,
-                            yearsOfExperience: e.target.value,
-                          })
-                        }
-                      />
-                    </Grid>
-                  </Grid>
+<Box
 
-                  {/* Skills Section */}
-                  <Box mb={3}>
-                    <Typography variant="subtitle2" fontWeight="bold" mb={2}>
-                      Skills
-                    </Typography>
-                    <Box display="flex" gap={1} mb={2} flexWrap="wrap">
-                      {editedProfile.skills.map((skill) => (
-                        <Chip
-                          key={skill}
-                          label={skill}
-                          onDelete={() => handleRemoveSkill(skill)}
-                          color="primary"
-                          variant="outlined"
-                        />
-                      ))}
-                    </Box>
-                    <Box display="flex" gap={1}>
-                      <TextField
-                        size="small"
-                        value={newSkill}
-                        onChange={(e) => setNewSkill(e.target.value)}
-                        placeholder="Add a skill..."
-                        onKeyPress={(e) => {
-                          if (e.key === "Enter") {
-                            handleAddSkill();
-                          }
-                        }}
-                      />
-                      <Button
-                        size="small"
-                        variant="outlined"
-                        onClick={handleAddSkill}
-                      >
-                        Add
-                      </Button>
-                    </Box>
-                  </Box>
+mb={4}
 
-                  {/* Action Buttons */}
-                  <Box display="flex" gap={2}>
-                    <Button
-                      variant="contained"
-                      onClick={handleSave}
-                      startIcon={<Save size={20} />}
-                    >
-                      Save Changes
-                    </Button>
-                    <Button variant="outlined" onClick={handleCancel}>
-                      Cancel
-                    </Button>
-                  </Box>
-                </Box>
-              ) : (
-                // View Mode
-                <Box>
-                  <Box mb={3}>
-                    <Typography variant="subtitle2" fontWeight="bold" mb={1}>
-                      Bio
-                    </Typography>
-                    <Typography variant="body2">{profile.bio}</Typography>
-                  </Box>
+display="flex"
 
-                  <Box mb={3}>
-                    <Typography variant="subtitle2" fontWeight="bold" mb={2}>
-                      Skills
-                    </Typography>
-                    <Box display="flex" gap={1} flexWrap="wrap">
-                      {profile.skills.map((skill) => (
-                        <Chip key={skill} label={skill} color="primary" />
-                      ))}
-                    </Box>
-                  </Box>
+justifyContent="space-between"
 
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight="bold" mb={1}>
-                      Professional Information
-                    </Typography>
-                    <Typography variant="body2" mb={0.5}>
-                      <strong>Company:</strong> {profile.currentCompany}
-                    </Typography>
-                    <Typography variant="body2" mb={0.5}>
-                      <strong>Role:</strong> {profile.currentRole}
-                    </Typography>
-                    <Typography variant="body2">
-                      <strong>Experience:</strong> {profile.yearsOfExperience} years
-                    </Typography>
-                  </Box>
-                </Box>
-              )}
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
+alignItems={{
+xs:"flex-start",
+md:"center"
+}}
 
-      {/* Photo Upload Dialog */}
-      <Dialog open={showPhotoDialog} onClose={() => setShowPhotoDialog(false)}>
-        <DialogTitle>Upload Profile Photo</DialogTitle>
-        <DialogContent sx={{ pt: 2 }}>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoUpload}
-            style={{ width: "100%" }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowPhotoDialog(false)}>Close</Button>
-        </DialogActions>
-      </Dialog>
-    </Layout>
-  );
+flexDirection={{
+xs:"column",
+md:"row"
+}}
+
+gap={2}
+
+>
+
+
+<Box>
+
+<Typography
+
+variant="h4"
+
+fontWeight={800}
+
+>
+
+Profile
+
+</Typography>
+
+
+<Typography
+
+color="text.secondary"
+
+>
+
+Manage your professional information
+
+</Typography>
+
+
+</Box>
+
+
+
+{
+
+!isEditing &&
+
+<Button
+
+variant="contained"
+
+startIcon={<Edit2 size={20}/>}
+
+onClick={()=>setIsEditing(true)}
+
+sx={{
+
+background:"#2563EB",
+
+borderRadius:3,
+
+px:3,
+
+textTransform:"none",
+
+fontWeight:700
+
+}}
+
+>
+
+Edit Profile
+
+</Button>
+
+}
+
+
+
+</Box>
+
+
+
+
+
+<Grid container spacing={3}>
+
+
+{/* LEFT PROFILE CARD */}
+
+
+<Grid item xs={12} lg={4}>
+
+
+<Card
+
+sx={{
+
+borderRadius:4,
+
+height:"100%",
+
+boxShadow:
+"0 8px 30px rgba(15,23,42,.08)"
+
+}}
+
+>
+
+
+<CardContent
+
+sx={{
+
+textAlign:"center",
+
+pt:5,
+
+px:3
+
+}}
+
+>
+
+
+<Box
+
+position="relative"
+
+display="inline-block"
+
+mb={2}
+
+>
+
+
+<Avatar
+
+src={profilePhoto}
+
+sx={{
+
+width:130,
+
+height:130,
+
+fontSize:"3rem",
+
+fontWeight:700,
+
+background:"#2563EB",
+
+boxShadow:
+"0 10px 25px rgba(37,99,235,.3)"
+
+}}
+
+>
+
+{profile.firstName[0]}
+
+{profile.lastName[0]}
+
+</Avatar>
+
+
+
+{
+
+isEditing &&
+
+<IconButton
+
+onClick={()=>setShowPhotoDialog(true)}
+
+sx={{
+
+position:"absolute",
+
+bottom:5,
+
+right:5,
+
+background:"#2563EB",
+
+color:"#fff",
+
+"&:hover":{
+background:"#1D4ED8"
+}
+
+}}
+
+>
+
+<Camera size={20}/>
+
+</IconButton>
+
+}
+
+
+
+</Box>
+
+
+
+<Typography
+
+variant="h5"
+
+fontWeight={800}
+
+>
+
+{profile.firstName}
+
+{" "}
+
+{profile.lastName}
+
+</Typography>
+
+
+
+<Typography
+
+color="text.secondary"
+
+>
+
+{profile.currentRole}
+
+</Typography>
+
+
+
+<Typography
+
+variant="body2"
+
+color="text.secondary"
+
+>
+
+{profile.location}
+
+</Typography>
+
+
+
+<Divider sx={{my:3}}/>
+
+
+
+
+<Typography
+
+fontWeight={700}
+
+textAlign="left"
+
+mb={2}
+
+>
+
+Contact Information
+
+</Typography>
+
+
+
+<Box textAlign="left">
+
+
+<Typography variant="caption">
+Email
+</Typography>
+
+
+<Typography mb={2}>
+{profile.email}
+</Typography>
+
+
+
+<Typography variant="caption">
+Phone
+</Typography>
+
+
+<Typography mb={2}>
+{profile.phone}
+</Typography>
+
+
+
+<Typography variant="caption">
+Experience
+</Typography>
+
+
+<Typography>
+{profile.yearsOfExperience} years
+</Typography>
+
+
+</Box>
+
+
+
+</CardContent>
+
+
+</Card>
+
+
+</Grid>
+
+
+
+
+
+{/* RIGHT CONTENT */}
+
+
+<Grid item xs={12} lg={8}>
+
+
+<Card
+
+sx={{
+
+borderRadius:4,
+
+boxShadow:
+"0 8px 30px rgba(15,23,42,.08)"
+
+}}
+
+>
+
+
+<CardContent
+
+sx={{
+
+p:4
+
+}}
+
+>
+
+
+
+{
+
+isEditing ?
+
+
+<Box>
+
+
+<Typography
+
+variant="h6"
+
+fontWeight={800}
+
+mb={3}
+
+>
+
+Edit Profile
+
+</Typography>
+
+
+
+<Grid container spacing={2}>
+
+
+{
+
+[
+
+["firstName","First Name"],
+
+["lastName","Last Name"],
+
+["email","Email"],
+
+["phone","Phone"],
+
+["location","Location"],
+
+["currentCompany","Company"],
+
+["currentRole","Role"]
+
+].map(([field,label])=>(
+
+
+<Grid
+
+item
+
+xs={12}
+
+sm={6}
+
+key={field}
+
+>
+
+
+<TextField
+
+fullWidth
+
+label={label}
+
+value={editedProfile[field]}
+
+onChange={(e)=>
+
+setEditedProfile({
+
+...editedProfile,
+
+[field]:e.target.value
+
+})
+
+}
+
+/>
+
+
+</Grid>
+
+
+))
+
+
+}
+
+
+
+<Grid item xs={12}>
+
+
+<TextField
+
+fullWidth
+
+multiline
+
+rows={3}
+
+label="Bio"
+
+value={editedProfile.bio}
+
+onChange={(e)=>
+
+setEditedProfile({
+
+...editedProfile,
+
+bio:e.target.value
+
+})
+
+}
+
+/>
+
+
+</Grid>
+
+
+</Grid>
+
+
+
+
+
+<Box mt={3}>
+
+
+<Typography fontWeight={700} mb={2}>
+
+Skills
+
+</Typography>
+
+
+
+<Box display="flex" gap={1} flexWrap="wrap">
+
+
+{
+
+editedProfile.skills.map(skill=>(
+
+
+<Chip
+
+key={skill}
+
+label={skill}
+
+onDelete={()=>removeSkill(skill)}
+
+sx={{
+
+background:"#EFF6FF",
+
+color:"#2563EB"
+
+}}
+
+/>
+
+
+))
+
+}
+
+
+</Box>
+
+
+
+<Box display="flex" gap={1} mt={2}>
+
+
+<TextField
+
+size="small"
+
+value={newSkill}
+
+onChange={(e)=>setNewSkill(e.target.value)}
+
+placeholder="Add skill"
+
+/>
+
+
+<Button
+
+variant="outlined"
+
+onClick={addSkill}
+
+>
+
+Add
+
+</Button>
+
+
+</Box>
+
+
+</Box>
+
+
+
+
+<Box mt={4} display="flex" gap={2}>
+
+
+<Button
+
+variant="contained"
+
+startIcon={<Save size={18}/>}
+
+onClick={handleSave}
+
+>
+
+Save
+
+</Button>
+
+
+
+<Button
+
+variant="outlined"
+
+onClick={handleCancel}
+
+>
+
+Cancel
+
+</Button>
+
+
+</Box>
+
+
+</Box>
+
+
+
+:
+
+
+<Box>
+
+
+<Typography
+
+fontWeight={700}
+
+mb={1}
+
+>
+
+Bio
+
+</Typography>
+
+
+<Typography mb={3}>
+
+{profile.bio}
+
+</Typography>
+
+
+
+<Divider sx={{my:3}}/>
+
+
+
+<Typography
+
+fontWeight={700}
+
+mb={2}
+
+>
+
+Skills
+
+</Typography>
+
+
+<Box display="flex" gap={1} flexWrap="wrap">
+
+
+{
+
+profile.skills.map(skill=>(
+
+<Chip
+
+key={skill}
+
+label={skill}
+
+sx={{
+
+background:"#EFF6FF",
+
+color:"#2563EB",
+
+fontWeight:600
+
+}}
+
+/>
+
+
+))
+
+}
+
+
+</Box>
+
+
+<Divider sx={{my:3}}/>
+
+
+<Typography
+
+fontWeight={700}
+
+mb={2}
+
+>
+
+Professional Information
+
+</Typography>
+
+<Typography>
+
+Company: {profile.currentCompany}
+
+</Typography>
+
+<Typography>
+
+Role: {profile.currentRole}
+
+</Typography>
+
+
+<Typography>
+
+Experience: {profile.yearsOfExperience} years
+
+</Typography>
+
+
+</Box>
+
+
+}
+
+
+
+</CardContent>
+
+
+</Card>
+
+
+</Grid>
+
+
+
+</Grid>
+
+
+
+
+
+<Dialog
+
+open={showPhotoDialog}
+
+onClose={()=>setShowPhotoDialog(false)}
+
+>
+
+
+<DialogTitle>
+Upload Profile Photo
+</DialogTitle>
+
+
+<DialogContent>
+
+
+<input
+
+type="file"
+
+accept="image/*"
+
+onChange={handlePhotoUpload}
+
+/>
+
+
+</DialogContent>
+
+
+
+<DialogActions>
+
+
+<Button
+
+onClick={()=>setShowPhotoDialog(false)}
+
+>
+
+Close
+
+</Button>
+
+
+</DialogActions>
+
+
+</Dialog>
+
+</Layout>
+
+);
+
 }

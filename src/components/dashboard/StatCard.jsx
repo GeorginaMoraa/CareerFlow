@@ -1,4 +1,10 @@
-import { Card, CardContent, Typography, Box } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Box,
+} from "@mui/material";
+
 
 export default function StatCard({
   title,
@@ -6,55 +12,169 @@ export default function StatCard({
   icon,
   color,
 }) {
+
+
   return (
+
     <Card
-      elevation={0}
+
       sx={{
-        borderRadius: 4,
-        p: 1,
-        transition: "0.3s",
-        border: "1px solid #e2e8f0",
-        "&:hover": {
-          transform: "translateY(-5px)",
-          boxShadow: "0 10px 30px rgba(0,0,0,.08)",
-        },
+
+        height:"100%",
+
+        minHeight:150,
+
+        borderRadius:4,
+
+        background:"#FFFFFF",
+
+        border:"1px solid #E2E8F0",
+
+        boxShadow:
+        "0 4px 20px rgba(15,23,42,0.04)",
+
+
+        transition:"all .25s ease",
+
+
+        "&:hover":{
+
+          transform:"translateY(-4px)",
+
+          boxShadow:
+          "0 12px 30px rgba(15,23,42,0.10)"
+
+        }
+
       }}
+
     >
-      <CardContent>
+
+
+      <CardContent
+
+        sx={{
+
+          p:3,
+
+          "&:last-child":{
+
+            pb:3
+
+          }
+
+        }}
+
+      >
+
+
+
         <Box
+
           display="flex"
+
           justifyContent="space-between"
-          alignItems="center"
+
+          alignItems="flex-start"
+
         >
+
+
+
+
           <Box>
-            <Typography color="text.secondary">
-              {title}
-            </Typography>
+
 
             <Typography
-              variant="h4"
-              fontWeight="bold"
+
+              variant="body2"
+
+              color="text.secondary"
+
+              fontWeight={600}
+
+              mb={1}
+
             >
-              {value}
+
+              {title}
+
             </Typography>
+
+
+
+
+            <Typography
+
+              variant="h3"
+
+              fontWeight={800}
+
+              color="#0F172A"
+
+            >
+
+              {value}
+
+            </Typography>
+
+
+
           </Box>
 
+
+
+
+
+
+
           <Box
+
             sx={{
-              bgcolor: color,
-              width: 60,
-              height: 60,
-              borderRadius: 3,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
+
+              width:56,
+
+              height:56,
+
+              borderRadius:3,
+
+
+              display:"flex",
+
+              alignItems:"center",
+
+              justifyContent:"center",
+
+
+              color:"#fff",
+
+
+              background:color,
+
+
+              boxShadow:
+              `0 8px 20px ${color}55`
+
             }}
+
           >
+
             {icon}
+
           </Box>
+
+
+
         </Box>
+
+
+
+
       </CardContent>
+
+
     </Card>
+
   );
+
 }
