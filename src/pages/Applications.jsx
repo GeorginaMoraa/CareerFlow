@@ -1,18 +1,23 @@
 import { useState } from "react";
-
-import Layout from "../components/layout/Layout";
-import JobForm from "../components/jobs/JobForm";
-import JobTable from "../components/jobs/JobTable";
-
 import {
   Typography,
   Button,
   Box,
   TextField,
   MenuItem,
+  Chip,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
+import { Plus } from "lucide-react";
+import Layout from "../components/layout/Layout";
+import JobForm from "../components/jobs/JobForm";
+import JobTable from "../components/jobs/JobTable";
 
+// ✅ FIXED: Clean, organized layout structure
 export default function Applications() {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [open, setOpen] = useState(false);
   const [editingJob, setEditingJob] = useState(null);
@@ -20,80 +25,144 @@ export default function Applications() {
   const [statusFilter, setStatusFilter] = useState("All");
 
   const handleAdd = () => {
-  setEditingJob(null);
-  setOpen(true);
-};
+    setEditingJob(null);
+    setOpen(true);
+  };
 
-const handleEdit = (job) => {
-  setEditingJob(job);
-  setOpen(true);
-};
+  const handleEdit = (job) => {
+    setEditingJob(job);
+    setOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setOpen(false);
+    setEditingJob(null);
+  };
+
+  const statusOptions = [
+    { value: "All", label: "All Status" },
+    { value: "Applied", label: "Applied" },
+    { value: "Interview", label: "Interview" },
+    { value: "Assessment", label: "Assessment" },
+    { value: "Offer", label: "Offer" },
+    { value: "Rejected", label: "Rejected" },
+  ];
 
   return (
     <Layout>
-
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        mb={4}
-      >
-        <Typography
-          variant="h4"
-          fontWeight="bold"
+      {/* Page Header */}
+      <Box mb={4}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={2}
+          mb={3}
+          flexDirection={isMobile ? "column" : "row"}
         >
-          Applications
-        </Typography>
-        <br />
-        <Box 
-        display="flex" 
-        gap={2}
-        mb={3}
+          <div>
+            <Typography variant="h4" fontWeight="700" gutterBottom>
+              Applications
+            </Typography>
+            <Typography color="text.secondary" variant="body2">
+              Track and manage your job applications in one place
+            </Typography>
+          </div>
+
+          <Button
+            variant="contained"
+            startIcon={<Plus size={20} />}
+            onClick={handleAdd}
+            sx={{
+              alignSelf: isMobile ? "stretch" : "auto",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Add Application
+          </Button>
+        </Box>
+
+        {/* Filters Section */}
+        <Box
+          display="flex"
+          gap={2}
+          flexDirection={isMobile ? "column" : "row"}
+          sx={{
+            p: 2,
+            bgcolor: "background.paper",
+            borderRadius: theme.shape.borderRadius / 2,
+            border: `1px solid ${theme.palette.divider}`,
+          }}
         >
           <TextField
-            label="Search"
+            label="Search by company or position"
             variant="outlined"
             size="small"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            sx={{ flex: 1 }}
+            placeholder="e.g., Google, Software Engineer"
+            sx={{
+              flex: isMobile ? 1 : 1.5,
+              "& .MuiOutlinedInput-root": {
+                borderRadius: theme.shape.borderRadius / 2,
+              },
+            }}
           />
+
           <TextField
             select
-            label="Status"
+            label="Filter by status"
             variant="outlined"
             size="small"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            sx={{ width: 180 }}
+            sx={{
+              minWidth: "160px",
+              "& .MuiOutlinedInput-root": {
+                borderRadius: theme.shape.borderRadius / 2,
+              },
+            }}
           >
-            <MenuItem value="All">All</MenuItem>
-            <MenuItem value="Applied">Applied</MenuItem>
-            <MenuItem value="Interview">Interview</MenuItem>
-            <MenuItem value="Assessment">Assessment</MenuItem>
-            <MenuItem value="Offer">Offer</MenuItem>
-            <MenuItem value="Rejected">Rejected</MenuItem>
+            {statusOptions.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
           </TextField>
-        </Box>
 
-<br />
-        <Button
-  variant="contained"
-  onClick={handleAdd}
->
-  + Add Application
-</Button>
+          {/* Clear Filters Button */}
+          {(search || statusFilter !== "All") && (
+            <Box display="flex" alignItems="center">
+              <Chip
+                label="Clear filters"
+                onDelete={() => {
+                  setSearch("");
+                  setStatusFilter("All");
+                }}
+                size="small"
+                variant="outlined"
+              />
+            </Box>
+          )}
+        </Box>
       </Box>
-<br />
+
+      {/* Job Form Modal */}
       <JobForm
         open={open}
-        handleClose={() => setOpen(false)}
+        handleClose={handleCloseForm}
         editingJob={editingJob}
         setEditingJob={setEditingJob}
       />
-      <Box mt={4}>
-        <JobTable search={search} statusFilter={statusFilter} onEdit={handleEdit} />
-      </Box>
 
+      {/* Job Table */}
+      <Box mt={4}>
+        <JobTable
+          search={search}
+          statusFilter={statusFilter}
+          onEdit={handleEdit}
+        />
+      </Box>
     </Layout>
   );
 }

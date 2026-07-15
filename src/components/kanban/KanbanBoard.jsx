@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import { useJobs } from "../../context/JobContext";
-
 import KanbanColumn from "./KanbanColumn";
+import { DndContext } from "@dnd-kit/core";
 
 const columns = [
   "Applied",
@@ -12,20 +12,48 @@ const columns = [
 ];
 
 export default function KanbanBoard() {
-  const { jobs } = useJobs();
+  const { 
+    jobs,
+    updateJobStatus
+   } = useJobs();
+
+   const handleDragEnd = (event) => {
+    console.log("Drag ended", event);
+
+    const { active, over } = event;
+
+    if (!over) return;
+
+    updateJobStatus(
+        active.id,
+        over.id
+    );
+
+};
 
   return (
-    <Grid container spacing={3}>
+    <DndContext 
+    onDragEnd={handleDragEnd}
+    >
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: {
+          xs: "1fr",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(5, 1fr)",
+        },
+        gap: 3,
+      }}
+    >
       {columns.map((column) => (
-        <Grid item xs={12} md={6} lg={2.4} key={column}>
-          <KanbanColumn
-            title={column}
-            jobs={jobs.filter(
-              (job) => job.status === column
-            )}
-          />
-        </Grid>
+        <KanbanColumn
+          key={column}
+          title={column}
+          jobs={jobs.filter((job) => job.status === column)}
+        />
       ))}
-    </Grid>
+    </Box>
+    </DndContext>
   );
 }
