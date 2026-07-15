@@ -126,12 +126,13 @@ width:DRAWER_WIDTH,
 boxSizing:"border-box",
 
 
-background:"#0F172A",
+background:"rgba(15, 23, 42, 0.95)",
 
+backdropFilter:"blur(12px)",
 
 color:"#fff",
 
-border:"none",
+border:"1px solid rgba(255, 255, 255, 0.1)",
 
 }
 
@@ -156,7 +157,7 @@ fontWeight={800}
 
 sx={{
 
-color:"#38BDF8",
+color:"#10B981",
 
 }}
 
@@ -261,12 +262,17 @@ background:"#1E293B"
 "&.Mui-selected":{
 
 
-background:"#2563EB",
+background:"rgba(16, 185, 129, 0.2)",
 
+backdropFilter:"blur(8px)",
+
+borderLeft:"3px solid #10B981",
+
+paddingLeft:"calc(16px - 3px)",
 
 "&:hover":{
 
-background:"#2563EB"
+background:"rgba(16, 185, 129, 0.25)",
 
 }
 

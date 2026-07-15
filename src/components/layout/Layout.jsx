@@ -36,7 +36,7 @@ export default function Layout({ children }) {
       sx={{
         display:"flex",
         minHeight:"100vh",
-        background:"#F8FAFC",
+        background:"#F5F5F5",
       }}
     >
 

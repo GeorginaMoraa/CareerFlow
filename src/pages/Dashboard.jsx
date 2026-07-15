@@ -43,9 +43,16 @@ export default function Dashboard() {
 
             variant="h4"
 
-            fontWeight={800}
+            fontWeight={700}
 
-            color="#0F172A"
+            sx={{
+              color: "#111827",
+              background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+              backgroundClip: "text",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundSize: "200% 200%",
+            }}
 
           >
 
@@ -59,7 +66,9 @@ export default function Dashboard() {
 
             color="text.secondary"
 
-            mt={1}
+            mt={2}
+
+            sx={{ fontSize: "1rem" }}
 
           >
 

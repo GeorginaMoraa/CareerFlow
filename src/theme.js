@@ -1,18 +1,18 @@
 import { createTheme } from "@mui/material/styles";
 
-// ✅ FIXED: Enhanced theme with better design system
+// ✅ NEW DESIGN: Light background with Green/Emerald accent + Glassmorphic sidebar
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#2563EB",
-      light: "#3B82F6",
-      dark: "#1E40AF",
+      main: "#10B981",      // Emerald Green
+      light: "#34D399",     // Light Emerald
+      dark: "#059669",      // Dark Emerald
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#4F46E5",
-      light: "#6366F1",
-      dark: "#4338CA",
+      main: "#14B8A6",      // Teal complement
+      light: "#2DD4BF",
+      dark: "#0D9488",
     },
     success: {
       main: "#10B981",
@@ -35,14 +35,14 @@ const theme = createTheme({
       dark: "#0891B2",
     },
     background: {
-      default: "#F8FAFC",
+      default: "#F5F5F5",    // Light gray background
       paper: "#FFFFFF",
     },
-    divider: "#E2E8F0",
+    divider: "#E5E7EB",
     text: {
-      primary: "#1E293B",
-      secondary: "#64748B",
-      disabled: "#94A3B8",
+      primary: "#111827",    // Darker text for light background
+      secondary: "#6B7280",
+      disabled: "#9CA3AF",
     },
   },
 
@@ -53,12 +53,12 @@ const theme = createTheme({
   spacing: 8, // Base 8px spacing system
 
   typography: {
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    fontFamily: '"Poppins", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
     
     // h1: Display heading for hero sections
     h1: {
       fontSize: "2.5rem",
-      fontWeight: 700,
+      fontWeight: 600,
       lineHeight: 1.2,
       letterSpacing: "-0.02em",
     },
@@ -66,7 +66,7 @@ const theme = createTheme({
     // h2: Large section heading
     h2: {
       fontSize: "2rem",
-      fontWeight: 700,
+      fontWeight: 600,
       lineHeight: 1.3,
       letterSpacing: "-0.01em",
     },
@@ -74,7 +74,7 @@ const theme = createTheme({
     // h3: Section heading
     h3: {
       fontSize: "1.5rem",
-      fontWeight: 700,
+      fontWeight: 600,
       lineHeight: 1.4,
     },
     
@@ -106,14 +106,14 @@ const theme = createTheme({
       fontSize: "1rem",
       fontWeight: 500,
       lineHeight: 1.5,
-      color: "#64748B",
+      color: "#6B7280",
     },
     
     subtitle2: {
       fontSize: "0.875rem",
       fontWeight: 500,
       lineHeight: 1.57,
-      color: "#64748B",
+      color: "#6B7280",
     },
     
     // Body text
@@ -150,38 +150,45 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: 6,
+          borderRadius: 8,
           textTransform: "none",
           fontWeight: 600,
           padding: "10px 16px",
-          transition: "all 0.2s ease",
+          transition: "all 0.3s ease",
           "&:hover": {
-            transform: "translateY(-1px)",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            transform: "translateY(-2px)",
+            boxShadow: "0 8px 16px rgba(16, 185, 129, 0.15)",
           },
         },
         contained: {
-          boxShadow: "0 1px 3px rgba(0,0,0,0.1)",
+          boxShadow: "0 2px 8px rgba(16, 185, 129, 0.12)",
+          background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
         },
         outlined: {
           borderWidth: "1.5px",
+          borderColor: "#10B981",
+          color: "#10B981",
           "&:hover": {
             borderWidth: "1.5px",
+            background: "rgba(16, 185, 129, 0.05)",
           },
         },
       },
     },
 
-    // Card customization
+    // Card customization - Glassmorphic effect
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 8,
-          border: "1px solid #E2E8F0",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-          transition: "box-shadow 0.2s ease",
+          borderRadius: 12,
+          border: "1px solid rgba(255, 255, 255, 0.4)",
+          background: "rgba(255, 255, 255, 0.7)",
+          backdropFilter: "blur(10px)",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
+          transition: "all 0.3s ease",
           "&:hover": {
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
+            background: "rgba(255, 255, 255, 0.8)",
           },
         },
       },
@@ -192,16 +199,17 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& .MuiOutlinedInput-root": {
-            borderRadius: 6,
-            backgroundColor: "#FFFFFF",
+            borderRadius: 8,
+            backgroundColor: "rgba(255, 255, 255, 0.6)",
+            backdropFilter: "blur(8px)",
             "& fieldset": {
-              borderColor: "#E2E8F0",
+              borderColor: "rgba(229, 231, 235, 0.5)",
             },
             "&:hover fieldset": {
-              borderColor: "#CBD5E1",
+              borderColor: "rgba(16, 185, 129, 0.3)",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "#2563EB",
+              borderColor: "#10B981",
               borderWidth: "2px",
             },
           },
@@ -213,11 +221,13 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius: 6,
+          borderRadius: 8,
           fontWeight: 500,
+          background: "rgba(16, 185, 129, 0.1)",
+          color: "#059669",
         },
         outlined: {
-          borderColor: "#E2E8F0",
+          borderColor: "rgba(16, 185, 129, 0.3)",
         },
       },
     },
@@ -226,20 +236,22 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-          backgroundColor: "#FFFFFF",
-          color: "#1E293B",
-          borderBottom: "1px solid #E2E8F0",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06)",
+          backgroundColor: "rgba(255, 255, 255, 0.8)",
+          backdropFilter: "blur(8px)",
+          color: "#111827",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
         },
       },
     },
 
-    // Drawer customization
+    // Drawer customization - Dark glassmorphic
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: "#FFFFFF",
-          borderRight: "1px solid #E2E8F0",
+          backgroundColor: "rgba(15, 23, 42, 0.95)",
+          backdropFilter: "blur(12px)",
+          borderRight: "1px solid rgba(255, 255, 255, 0.1)",
           backgroundImage: "none",
         },
       },
@@ -252,10 +264,14 @@ const theme = createTheme({
           backgroundImage: "none",
         },
         elevation0: {
-          border: "1px solid #E2E8F0",
+          border: "1px solid rgba(229, 231, 235, 0.5)",
+          background: "rgba(255, 255, 255, 0.5)",
+          backdropFilter: "blur(8px)",
         },
         elevation1: {
-          boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06)",
+          background: "rgba(255, 255, 255, 0.7)",
+          backdropFilter: "blur(10px)",
         },
       },
     },
@@ -264,11 +280,12 @@ const theme = createTheme({
     MuiTableHead: {
       styleOverrides: {
         root: {
-          backgroundColor: "#F8FAFC",
+          backgroundColor: "rgba(245, 245, 245, 0.5)",
+          backdropFilter: "blur(8px)",
           "& .MuiTableCell-head": {
             fontWeight: 600,
-            color: "#1E293B",
-            borderColor: "#E2E8F0",
+            color: "#111827",
+            borderColor: "rgba(229, 231, 235, 0.5)",
           },
         },
       },
@@ -278,7 +295,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&:hover": {
-            backgroundColor: "#F1F5F9",
+            backgroundColor: "rgba(245, 245, 245, 0.6)",
           },
         },
       },
