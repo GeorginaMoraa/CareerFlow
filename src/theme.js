@@ -4,13 +4,13 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#10B981",      // Emerald Green
-      light: "#34D399",     // Light Emerald
-      dark: "#059669",      // Dark Emerald
+      main: "#10B981", // Emerald Green
+      light: "#34D399", // Light Emerald
+      dark: "#059669", // Dark Emerald
       contrastText: "#FFFFFF",
     },
     secondary: {
-      main: "#14B8A6",      // Teal complement
+      main: "#14B8A6", // Teal complement
       light: "#2DD4BF",
       dark: "#0D9488",
     },
@@ -35,12 +35,12 @@ const theme = createTheme({
       dark: "#0891B2",
     },
     background: {
-      default: "#F5F5F5",    // Light gray background
+      default: "#F5F5F5", // Light gray background
       paper: "#FFFFFF",
     },
     divider: "#E5E7EB",
     text: {
-      primary: "#111827",    // Darker text for light background
+      primary: "#111827", // Darker text for light background
       secondary: "#6B7280",
       disabled: "#9CA3AF",
     },
@@ -53,8 +53,9 @@ const theme = createTheme({
   spacing: 8, // Base 8px spacing system
 
   typography: {
-    fontFamily: '"Poppins", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
-    
+    fontFamily:
+      '"Poppins", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+
     // h1: Display heading for hero sections
     h1: {
       fontSize: "2.5rem",
@@ -62,7 +63,7 @@ const theme = createTheme({
       lineHeight: 1.2,
       letterSpacing: "-0.02em",
     },
-    
+
     // h2: Large section heading
     h2: {
       fontSize: "2rem",
@@ -70,28 +71,28 @@ const theme = createTheme({
       lineHeight: 1.3,
       letterSpacing: "-0.01em",
     },
-    
+
     // h3: Section heading
     h3: {
       fontSize: "1.5rem",
       fontWeight: 600,
       lineHeight: 1.4,
     },
-    
+
     // h4: Card/block heading
     h4: {
       fontSize: "1.25rem",
       fontWeight: 600,
       lineHeight: 1.4,
     },
-    
+
     // h5: Subsection heading
     h5: {
       fontSize: "1rem",
       fontWeight: 600,
       lineHeight: 1.5,
     },
-    
+
     // h6: Small heading
     h6: {
       fontSize: "0.875rem",
@@ -100,7 +101,7 @@ const theme = createTheme({
       textTransform: "uppercase",
       letterSpacing: "0.05em",
     },
-    
+
     // Subtitle for descriptive text
     subtitle1: {
       fontSize: "1rem",
@@ -108,34 +109,34 @@ const theme = createTheme({
       lineHeight: 1.5,
       color: "#6B7280",
     },
-    
+
     subtitle2: {
       fontSize: "0.875rem",
       fontWeight: 500,
       lineHeight: 1.57,
       color: "#6B7280",
     },
-    
+
     // Body text
     body1: {
       fontSize: "1rem",
       fontWeight: 400,
       lineHeight: 1.6,
     },
-    
+
     body2: {
       fontSize: "0.875rem",
       fontWeight: 400,
       lineHeight: 1.57,
     },
-    
+
     // Buttons
     button: {
       textTransform: "none",
       fontWeight: 600,
       fontSize: "0.95rem",
     },
-    
+
     // Captions and labels
     caption: {
       fontSize: "0.75rem",
@@ -184,10 +185,12 @@ const theme = createTheme({
           border: "1px solid rgba(255, 255, 255, 0.4)",
           background: "rgba(255, 255, 255, 0.7)",
           backdropFilter: "blur(10px)",
-          boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
+          boxShadow:
+            "0 2px 8px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
           transition: "all 0.3s ease",
           "&:hover": {
-            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
+            boxShadow:
+              "0 8px 24px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
             background: "rgba(255, 255, 255, 0.8)",
           },
         },

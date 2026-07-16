@@ -14,11 +14,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-    <BrowserRouter>
-      <JobProvider>
-        <App />
-      </JobProvider>
-    </BrowserRouter>
+      <BrowserRouter>
+        <JobProvider>
+          <App />
+        </JobProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>
 );

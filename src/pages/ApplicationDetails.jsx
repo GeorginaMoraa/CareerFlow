@@ -27,9 +27,7 @@ export default function ApplicationDetails() {
   if (!job) {
     return (
       <Layout>
-        <Typography variant="h5">
-          Application not found.
-        </Typography>
+        <Typography variant="h5">Application not found.</Typography>
       </Layout>
     );
   }
@@ -48,20 +46,14 @@ export default function ApplicationDetails() {
         {job.company}
       </Typography>
 
-      <Typography
-        variant="h6"
-        color="text.secondary"
-        gutterBottom
-      >
+      <Typography variant="h6" color="text.secondary" gutterBottom>
         {job.position}
       </Typography>
 
       <Grid container spacing={3} mt={2}>
-
         <Grid item xs={12} md={6}>
           <Card>
             <CardContent>
-
               <Typography variant="h6" gutterBottom>
                 Application Details
               </Typography>
@@ -80,21 +72,14 @@ export default function ApplicationDetails() {
                 <strong>Status:</strong>
               </Typography>
 
-              <Chip
-                label={job.status}
-                color="primary"
-                sx={{ mt: 1 }}
-              />
-
+              <Chip label={job.status} color="primary" sx={{ mt: 1 }} />
             </CardContent>
           </Card>
         </Grid>
 
         <Grid item xs={12} md={6}>
           <Card>
-
             <CardContent>
-
               <Typography variant="h6" gutterBottom>
                 Timeline
               </Typography>
@@ -102,14 +87,10 @@ export default function ApplicationDetails() {
               <Divider sx={{ mb: 2 }} />
 
               <ApplicationTimeline timeline={job.timeline} />
-
             </CardContent>
-
           </Card>
         </Grid>
-
       </Grid>
-
     </Layout>
   );
 }

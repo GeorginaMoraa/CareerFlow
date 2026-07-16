@@ -61,7 +61,17 @@ export default function Applications() {
           flexDirection={isMobile ? "column" : "row"}
         >
           <div>
-            <Typography variant="h4" fontWeight="700" gutterBottom>
+            <Typography
+              variant="h4"
+              fontWeight={700}
+              sx={{
+                background: "linear-gradient(135deg, #10B981 0%, #059669 100%)",
+                backgroundClip: "text",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+              gutterBottom
+            >
               Applications
             </Typography>
             <Typography color="text.secondary" variant="body2">
@@ -89,9 +99,11 @@ export default function Applications() {
           flexDirection={isMobile ? "column" : "row"}
           sx={{
             p: 2,
-            bgcolor: "background.paper",
+            background: "rgba(255, 255, 255, 0.7)",
+            backdropFilter: "blur(10px)",
             borderRadius: theme.shape.borderRadius / 2,
-            border: `1px solid ${theme.palette.divider}`,
+            border: "1px solid rgba(255, 255, 255, 0.4)",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.06)",
           }}
         >
           <TextField

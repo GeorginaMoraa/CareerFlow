@@ -25,11 +25,7 @@ const defaultJob = {
   notes: "",
 };
 
-export default function JobForm({
-  open,
-  handleClose,
-  editingJob = null,
-}) {
+export default function JobForm({ open, handleClose, editingJob = null }) {
   const { addJob, updateJob } = useJobs();
 
   const [job, setJob] = useState(defaultJob);

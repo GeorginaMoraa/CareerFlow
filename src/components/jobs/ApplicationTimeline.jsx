@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  Typography,
-  Divider,
-  Box,
-} from "@mui/material";
+import { Card, CardContent, Typography, Divider, Box } from "@mui/material";
 
 export default function ApplicationTimeline({ timeline = [] }) {
   return (
@@ -31,21 +25,13 @@ export default function ApplicationTimeline({ timeline = [] }) {
                 mb: 3,
               }}
             >
-              <Typography fontWeight="bold">
-                {event.title}
-              </Typography>
+              <Typography fontWeight="bold">{event.title}</Typography>
 
-              <Typography
-                variant="body2"
-                color="text.secondary"
-              >
+              <Typography variant="body2" color="text.secondary">
                 {event.description}
               </Typography>
 
-              <Typography
-                variant="caption"
-                color="text.secondary"
-              >
+              <Typography variant="caption" color="text.secondary">
                 {new Date(event.date).toLocaleDateString()}
               </Typography>
             </Box>

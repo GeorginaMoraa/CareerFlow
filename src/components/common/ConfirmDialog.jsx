@@ -19,21 +19,13 @@ export default function ConfirmDialog({
       <DialogTitle>{title}</DialogTitle>
 
       <DialogContent>
-        <DialogContentText>
-          {message}
-        </DialogContentText>
+        <DialogContentText>{message}</DialogContentText>
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onCancel}>
-          Cancel
-        </Button>
+        <Button onClick={onCancel}>Cancel</Button>
 
-        <Button
-          variant="contained"
-          color="error"
-          onClick={onConfirm}
-        >
+        <Button variant="contained" color="error" onClick={onConfirm}>
           Delete
         </Button>
       </DialogActions>

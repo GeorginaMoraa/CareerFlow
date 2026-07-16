@@ -14,14 +14,6 @@ export const STATUS_COLORS = {
   Rejected: "error",
 };
 
-export const PRIORITIES = [
-  "High",
-  "Medium",
-  "Low",
-];
+export const PRIORITIES = ["High", "Medium", "Low"];
 
-export const WORK_TYPES = [
-  "Remote",
-  "Hybrid",
-  "On-site",
-];
+export const WORK_TYPES = ["Remote", "Hybrid", "On-site"];
