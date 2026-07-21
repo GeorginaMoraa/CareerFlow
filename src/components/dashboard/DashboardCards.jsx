@@ -1,143 +1,174 @@
-import { Card, Box, Typography, Divider } from "@mui/material";
-import {
-  Work,
-  CalendarMonth,
-  EmojiEvents,
-  TrendingUp,
-  ArrowUpward,
-  ArrowDownward,
-} from "@mui/icons-material";
+import { Grid, Card, CardContent, Typography, Box } from "@mui/material";
 import { useJobs } from "../../context/JobContext";
 
-export default function DashboardCards() {
-  const { jobs } = useJobs();
-  const applications = jobs.length;
-  const interviews = jobs.filter((j) => j.status === "Interview").length;
-  const offers = jobs.filter((j) => j.status === "Offer").length;
-  const successRate =
-    applications === 0 ? 0 : Math.round((offers / applications) * 100);
-
-  const stats = [
-    {
-      title: "Applications",
-      value: applications,
-      color: "#10B981",
-      icon: <Work />,
-      trend: "+12%",
-      up: true,
-    },
-    {
-      title: "Interviews",
-      value: interviews,
-      color: "#06B6D4",
-      icon: <CalendarMonth />,
-      trend: "+3",
-      up: true,
-    },
-    {
-      title: "Offers",
-      value: offers,
-      color: "#14B8A6",
-      icon: <EmojiEvents />,
-      trend: `${offers}`,
-      up: offers > 0,
-    },
-    {
-      title: "Success Rate",
-      value: `${successRate}%`,
-      color: "#8B5CF6",
-      icon: <TrendingUp />,
-      trend: successRate >= 15 ? "On track" : "Low",
-      up: successRate >= 15,
-    },
-  ];
-
+// Icons placeholder - replace with actual icons from lucide-react or @mui/icons-material
+const StatCard = ({ title, value, subtitle, gradient, icon, trend }) => {
   return (
     <Card
+      elevation={0}
       sx={{
-        borderRadius: 4,
-        background: "rgba(255, 255, 255, 0.7)",
-        backdropFilter: "blur(10px)",
-        border: "1px solid rgba(255, 255, 255, 0.4)",
-        boxShadow:
-          "0 2px 8px rgba(0, 0, 0, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.5)",
-        p: { xs: 2, md: 3 },
-        display: "grid",
-        gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr", md: "repeat(4, 1fr)" },
-        rowGap: { xs: 2.5, sm: 3 },
-        columnGap: 2,
+        borderRadius: 3,
+        background: "#FFFFFF",
+        border: "1px solid rgba(229, 231, 235, 0.8)",
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        position: "relative",
+        overflow: "hidden",
+        height: "100%",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          borderColor: "rgba(16, 185, 129, 0.2)",
+          boxShadow: "0 12px 24px rgba(16, 185, 129, 0.08)",
+        },
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "4px",
+          background: gradient,
+        },
       }}
     >
-      {stats.map((s, i) => (
+      <CardContent sx={{ p: 3 }}>
+        {/* Header with icon and trend */}
         <Box
-          key={s.title}
           sx={{
             display: "flex",
-            alignItems: "center",
-            gap: 2,
-            pl: { md: i > 0 ? 3 : 0 },
-            borderLeft: {
-              xs: "none",
-              md: i > 0 ? "1px solid rgba(229, 231, 235, 0.6)" : "none",
-            },
+            justifyContent: "space-between",
+            alignItems: "flex-start",
+            mb: 2,
           }}
         >
           <Box
             sx={{
-              width: 48,
-              height: 48,
-              minWidth: 48,
-              borderRadius: 3,
+              width: 44,
+              height: 44,
+              background: `linear-gradient(135deg, ${gradient})`,
+              borderRadius: 2,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#fff",
-              background: `linear-gradient(135deg, ${s.color} 0%, ${s.color}dd 100%)`,
-              boxShadow: `0 4px 12px ${s.color}40`,
+              color: "#FFFFFF",
+              fontSize: "1.5rem",
             }}
           >
-            {s.icon}
+            {icon}
           </Box>
 
-          <Box sx={{ minWidth: 0 }}>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              fontWeight={600}
-              noWrap
-              sx={{ mb: 0.3 }}
+          {trend && (
+            <Box
+              sx={{
+                background: "rgba(16, 185, 129, 0.1)",
+                color: "#059669",
+                px: 1.5,
+                py: 0.5,
+                borderRadius: 1.5,
+                fontSize: "0.75rem",
+                fontWeight: 700,
+              }}
             >
-              {s.title}
-            </Typography>
-
-            <Box display="flex" alignItems="baseline" gap={1}>
-              <Typography
-                variant="h5"
-                fontWeight={700}
-                color="#111827"
-                sx={{ lineHeight: 1 }}
-              >
-                {s.value}
-              </Typography>
-
-              <Box display="flex" alignItems="center" gap={0.2}>
-                {s.up ? (
-                  <ArrowUpward sx={{ fontSize: 12, color: "#10B981" }} />
-                ) : (
-                  <ArrowDownward sx={{ fontSize: 12, color: "#EF4444" }} />
-                )}
-                <Typography
-                  variant="caption"
-                  fontWeight={700}
-                  sx={{ color: s.up ? "#059669" : "#DC2626" }}
-                >
-                  {s.trend}
-                </Typography>
-              </Box>
+              {trend}
             </Box>
-          </Box>
+          )}
         </Box>
-      ))}
+
+        {/* Value and Title */}
+        <Typography
+          variant="h4"
+          fontWeight={800}
+          sx={{
+            color: "#111827",
+            mb: 0.5,
+            fontSize: { xs: "1.75rem", md: "2rem" },
+          }}
+        >
+          {value}
+        </Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: "#6B7280",
+            fontWeight: 500,
+            fontSize: "0.9rem",
+            mb: 1,
+          }}
+        >
+          {title}
+        </Typography>
+
+        {subtitle && (
+          <Typography
+            variant="caption"
+            sx={{
+              color: "#9CA3AF",
+              fontSize: "0.8rem",
+              display: "block",
+            }}
+          >
+            {subtitle}
+          </Typography>
+        )}
+      </CardContent>
     </Card>
+  );
+};
+
+export default function DashboardCards() {
+  const { jobs } = useJobs();
+
+  const totalApplications = jobs.length;
+  const activeApplications = jobs.filter(
+    (job) => job.status !== "Offer" && job.status !== "Rejected"
+  ).length;
+  const interviews = jobs.filter(
+    (job) => job.interviews && job.interviews.length > 0
+  ).length;
+  const offers = jobs.filter((job) => job.status === "Offer").length || 0;
+
+  const stats = [
+    {
+      title: "Total Applications",
+      value: totalApplications,
+      subtitle: "All submissions",
+      gradient: "135deg, #10B981 0%, #059669 100%",
+      icon: "",
+      trend: totalApplications > 0 ? `+${totalApplications}` : "0",
+    },
+    {
+      title: "Active Positions",
+      value: activeApplications,
+      subtitle: "In progress",
+      gradient: "135deg, #06B6D4 0%, #0891B2 100%",
+      icon: "",
+      trend: activeApplications > 0 ? `${activeApplications}` : "0",
+    },
+    {
+      title: "Interviews",
+      value: interviews,
+      subtitle: "Scheduled meetings",
+      gradient: "135deg, #14B8A6 0%, #0D9488 100%",
+      icon: "",
+      trend: interviews > 0 ? `+${interviews}` : "0",
+    },
+    {
+      title: "Offers Received",
+      value: offers,
+      subtitle: "Ready to decide",
+      gradient: "135deg, #F59E0B 0%, #D97706 100%",
+      icon: "",
+      trend: offers > 0 ? `+${offers}` : "0",
+    },
+  ];
+
+  return (
+    <Grid container spacing={3}>
+      {stats.map((stat, index) => (
+        <Grid item xs={12} sm={6} lg={3} key={index}>
+          <StatCard {...stat} />
+        </Grid>
+      ))}
+    </Grid>
   );
 }
