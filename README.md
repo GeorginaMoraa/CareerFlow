@@ -1,1 +1,0 @@
-A modern career management platform for tracking job applications, interviews, recruiter contacts, and hiring analytics.
